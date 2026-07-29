@@ -3,13 +3,20 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        IMAGE_NAME = "Sherr31/my-project"     // change if needed
+        IMAGE_NAME = "Sherr31/my-project"
     }
 
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+            }
+        }
+
+        stage('Build JAR') {
+            steps {
+                sh 'chmod +x gradlew'
+                sh './gradlew clean build -x test'
             }
         }
 
