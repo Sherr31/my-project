@@ -14,6 +14,12 @@ pipeline {
         }
 
         stage('Build JAR') {
+            agent {
+                docker {
+                    image 'eclipse-temurin:8-jdk'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'chmod +x gradlew'
                 sh './gradlew clean build -x test'
@@ -51,3 +57,4 @@ pipeline {
         }
     }
 }
+
