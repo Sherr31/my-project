@@ -15,7 +15,7 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps {
                 script {
-                    def dockerImage = docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}")
+                    def dockerImage = docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}", "--no-cache .")
                     dockerImage.tag("latest")
 
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
